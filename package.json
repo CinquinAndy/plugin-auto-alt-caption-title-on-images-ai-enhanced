@@ -1,0 +1,46 @@
+{
+  "name": "plugin-auto-alt-caption-title-on-images-ai-enhanced",
+  "version": "1.0.0",
+  "description": "This is the description of the plugin.",
+  "strapi": {
+    "name": "plugin-auto-alt-caption-title-on-images-ai-enhanced",
+    "description": "Description of Plugin Auto Alt Caption Title On Images Ai Enhanced plugin",
+    "kind": "plugin",
+    "displayName": "Plugin Auto Alt Caption Title On Images Ai Enhanced"
+  },
+  "dependencies": {
+    "@strapi/design-system": "^1.6.3",
+    "@strapi/helper-plugin": "^4.6.0",
+    "@strapi/icons": "^1.6.3",
+    "prettier": "^3.2.5",
+    "prop-types": "^15.7.2",
+    "react-toastify": "^10.0.5"
+  },
+  "devDependencies": {
+    "node-fetch": "^3.3.2",
+    "openai": "^4.29.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.3",
+    "styled-components": "^6.1.8"
+  },
+  "peerDependencies": {
+    "react": "^17.0.0 || ^18.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0",
+    "react-router-dom": "^5.2.0",
+    "styled-components": "^5.2.1"
+  },
+  "author": {
+    "name": "A Strapi developer"
+  },
+  "maintainers": [
+    {
+      "name": "A Strapi developer"
+    }
+  ],
+  "engines": {
+    "node": ">=18.0.0 <=20.x.x",
+    "npm": ">=6.0.0"
+  },
+  "license": "MIT"
+}
