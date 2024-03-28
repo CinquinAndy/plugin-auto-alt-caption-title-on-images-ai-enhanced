@@ -93,6 +93,6 @@ This plugin was developed using the powerful capabilities of the OpenAI API and 
 
 ## Contact
 
-If you have any questions, suggestions, or feedback regarding this plugin, please feel free to contact us at \[email address\] or visit our website at \[website URL\].
+If you have any questions, suggestions, or feedback regarding this plugin, please feel free to contact us at contact@andy-cinquin.fr or visit our website at andy-cinquin.com
 
 We hope you find this plugin useful and that it enhances your Strapi application's image handling capabilities!
