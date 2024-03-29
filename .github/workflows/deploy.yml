@@ -2,7 +2,7 @@ name: Auto Deploy, install dependencies, increment version and push tag
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
     types: [ closed ]
 
 jobs:
@@ -15,7 +15,7 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ secrets.GIT_TOKEN }}
-          ref: 'main'
+          ref: 'master'
 
       - name: Configure Git
         run: |
@@ -54,5 +54,5 @@ jobs:
           git add package.json
           git commit -m "chore(release): ${{ steps.version-bump.outputs.VERSION }}"
           git tag v${{ steps.version-bump.outputs.VERSION }}
-          git push origin main --follow-tags
+          git push origin master --follow-tags
           git push origin refs/tags/v${{ steps.version-bump.outputs.VERSION }}
