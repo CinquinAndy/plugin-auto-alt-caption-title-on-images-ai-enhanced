@@ -106,10 +106,8 @@ coverage
 ############################
 
 .env
-license.txt
 exports
 .strapi
 build
 .strapi-updater.json
-
 config\database.js
