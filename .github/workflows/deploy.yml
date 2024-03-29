@@ -29,7 +29,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --force --frozen-lockfile
 
       - name: Increment Package Version and Update Tag
         id: version-bump
