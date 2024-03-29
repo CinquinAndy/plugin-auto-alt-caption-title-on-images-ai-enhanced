@@ -29,13 +29,13 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install Dependencies
-        run: npm ci
+        run: yarn install --frozen-lockfile
 
       - name: Increment Package Version and Update Tag
         id: version-bump
         run: |
           git fetch --tags
-          current_version=$(npm pkg get version | sed 's/"//g')
+          current_version=$(node -p "require('./package.json').version")
           echo "Current version: $current_version"
 
           new_version=$(npx semver -i patch $current_version)
@@ -46,13 +46,13 @@ jobs:
             echo "Tag v$new_version already exists. Trying next version..."
           done
 
-          npm version $new_version --no-git-tag-version
-          echo "::set-output name=VERSION::$new_version"
+          yarn version --new-version $new_version --no-git-tag-version
+          echo "version=$new_version" >> $GITHUB_OUTPUT
 
       - name: Commit and Push Version Update
         run: |
-          git add package.json
-          git commit -m "chore(release): ${{ steps.version-bump.outputs.VERSION }}"
-          git tag v${{ steps.version-bump.outputs.VERSION }}
+          git add package.json yarn.lock
+          git commit -m "chore(release): ${{ steps.version-bump.outputs.version }}"
+          git tag ${{ steps.version-bump.outputs.version }}
           git push origin master --follow-tags
-          git push origin refs/tags/v${{ steps.version-bump.outputs.VERSION }}
+          git push origin refs/tags/${{ steps.version-bump.outputs.version }}
