@@ -22,11 +22,15 @@
     "react-toastify": "^10.0.5",
     "styled-components": "^6.1.8"
   },
+  "devDependencies": {
+    "prettier": "^3.2.5",
+    "prop-types": "^15.7.2"
+  },
   "peerDependencies": {
     "react": "^17.0.0 || ^18.0.0",
     "react-dom": "^17.0.0 || ^18.0.0",
-    "react-router-dom": "^5.2.0",
-    "styled-components": "^5.2.1"
+    "react-router-dom": "^5.0.0 || ^6.0.0",
+    "styled-components": "^5.0.0 || ^6.0.0"
   },
   "author": {
     "name": "Andy Cinquin"
