@@ -1,6 +1,7 @@
 # Strapi Plugin: Auto Alt Caption Title on Images with AI Enhancement
 
 This Strapi plugin automatically generates alternative text (alt), caption, and name for images using AI-powered image analysis. It is designed to enhance the accessibility, SEO, and user experience of your Strapi application by providing meaningful and descriptive information for images.
+It use the OpenAI API to generate the alt text, caption and name of the images.
 
 ## Why Use This Plugin?
 
