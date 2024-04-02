@@ -4,6 +4,8 @@ const { OpenAI } = require('openai')
 
 module.exports = ({ strapi }) => ({
 	async getImageDescription(imageUrl) {
+		console.log('Processing image:', imageUrl)
+		console.log("in description")
 		const openai = new OpenAI({
 			apiKey: process.env.OPENAI_API_KEY,
 			dangerouslyAllowBrowser: true,
@@ -46,6 +48,8 @@ module.exports = ({ strapi }) => ({
 				}
 			}
 
+			console.log('imageData:', imageData)
+
 			// Get the image description using the OpenAI API
 			const response = await openai.chat.completions.create({
 				model: 'gpt-4-vision-preview',
@@ -63,6 +67,8 @@ module.exports = ({ strapi }) => ({
 				],
 			})
 
+			console.log('response:', response)
+
 			// Generate alt text, caption, and title for the image
 			const completion = await openai.chat.completions.create({
 				model: 'gpt-3.5-turbo-0125',
@@ -77,10 +83,13 @@ module.exports = ({ strapi }) => ({
 				stop: null,
 			})
 
+			console.log('completion:', completion)
+
 			// Parse the generated JSON data and return it
 			const generatedData = JSON.parse(
 				completion.choices[0].message.content.trim() || '{}'
 			)
+			console.log('generatedData:', generatedData)
 			return generatedData
 		} catch (error) {
 			console.error('Error processing image:', error)

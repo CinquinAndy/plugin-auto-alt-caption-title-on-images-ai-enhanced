@@ -46,12 +46,15 @@ module.exports = ({ strapi }) => ({
 			// Extract imageUrl and imageId from the request body
 			const { imageUrl, imageId } = ctx.request.body
 
+			console.log('imageUrl:', imageUrl)
+			console.log('imageId:', imageId)
 			// Send the image URL to the OpenAI API for analysis
 			const imageDescription = await strapi
 				.service(
-					'plugin::plugin-auto-alt-caption-title-on-images-ai-enhanced.myService'
+					'plugin::auto-alt-caption-title-on-images-ai-enhanced.myService'
 				)
 				.getImageDescription(imageUrl)
+			console.log('imageDescription:', imageDescription)
 
 			// Update the image fields with the analysis results
 			await strapi.entityService.update('plugin::upload.file', imageId, {
