@@ -111,3 +111,5 @@ exports
 build
 .strapi-updater.json
 config\database.js
+
+#yarn.lock

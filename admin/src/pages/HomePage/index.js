@@ -20,7 +20,7 @@ const HomePage = () => {
 	useEffect(() => {
 		// Fetch image data on component mount
 		const fetchPromise = fetch(
-			`${strapi.backendURL}/plugin-auto-alt-caption-title-on-images-ai-enhanced/images`,
+			`${strapi.backendURL}/auto-alt-caption-title-on-images-ai-enhanced/images`,
 			{
 				method: 'GET',
 				headers: {
@@ -65,7 +65,7 @@ const HomePage = () => {
 	const processImage = async image => {
 		// Process a single image
 		const fetchPromise = fetch(
-			`${strapi.backendURL}/plugin-auto-alt-caption-title-on-images-ai-enhanced/process`,
+			`${strapi.backendURL}/auto-alt-caption-title-on-images-ai-enhanced/process`,
 			{
 				method: 'POST',
 				headers: {
