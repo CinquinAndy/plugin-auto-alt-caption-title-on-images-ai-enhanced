@@ -16,7 +16,7 @@ module.exports = ({ strapi }) => ({
 			)
 
 			// Filter images that don't have alternativeText and caption
-			const imagesFiltered = images
+			let imagesFiltered = images
 				.map(image => {
 					if (image.alternativeText === null && image.caption === null) {
 						return {
@@ -29,6 +29,9 @@ module.exports = ({ strapi }) => ({
 					}
 				})
 				.filter(Boolean) // Remove undefined values from the array
+
+			// filter on type of image, get only images with type of image/png, image/jpeg, image/jpg, image/webp
+			imagesFiltered = images.filter(image => image.mime === 'image/png' || image.mime === 'image/jpeg' || image.mime === 'image/jpg' || image.mime === 'image/webp')
 
 			// Return the filtered images in the response body
 			ctx.body = {
