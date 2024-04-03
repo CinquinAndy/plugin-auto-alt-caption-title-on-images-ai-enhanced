@@ -1,48 +1,48 @@
 {
-  "name": "strapi-plugin-auto-alt-caption-title-on-images-ai-enhanced",
-  "version": "1.0.12",
-  "description": "A Strapi plugin that automatically generates alternative text, caption, and name for images using AI-powered image analysis.",
-  "strapi": {
-    "name": "auto-alt-caption-title-on-images-ai-enhanced",
-    "description": "Automatically generates alt, caption, and name for images using AI.",
-    "kind": "plugin",
-    "displayName": "Auto Alt Caption Title on Images with AI Enhancement"
-  },
-  "dependencies": {
-    "@strapi/design-system": "^1.6.3",
-    "@strapi/helper-plugin": "^4.6.0",
-    "@strapi/icons": "^1.6.3",
-    "node-fetch": "^3.3.2",
-    "openai": "^4.29.2",
-    "prettier": "^3.2.5",
-    "prop-types": "^15.7.2",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.3",
-    "react-toastify": "^10.0.5",
-    "styled-components": "^6.1.8"
-  },
-  "devDependencies": {
-    "prettier": "^3.2.5",
-    "prop-types": "^15.7.2"
-  },
-  "peerDependencies": {
-    "react": "^17.0.0 || ^18.0.0",
-    "react-dom": "^17.0.0 || ^18.0.0",
-    "react-router-dom": "^5.0.0 || ^6.0.0",
-    "styled-components": "^5.0.0 || ^6.0.0"
-  },
-  "author": {
-    "name": "Andy Cinquin"
-  },
-  "maintainers": [
-    {
-      "name": "Andy Cinquin"
-    }
-  ],
-  "engines": {
-    "node": ">=18.0.0 <=20.x.x",
-    "npm": ">=6.0.0"
-  },
-  "license": "MIT"
+	"name": "strapi-plugin-auto-alt-caption-title-on-images-ai-enhanced",
+	"version": "1.0.12",
+	"description": "A Strapi plugin that automatically generates alternative text, caption, and name for images using AI-powered image analysis.",
+	"strapi": {
+		"name": "auto-alt-caption-title-on-images-ai-enhanced",
+		"description": "Automatically generates alt, caption, and name for images using AI.",
+		"kind": "plugin",
+		"displayName": "Auto Alt Caption Title on Images with AI Enhancement"
+	},
+	"dependencies": {
+		"@strapi/design-system": "^1.6.3",
+		"@strapi/helper-plugin": "^4.6.0",
+		"@strapi/icons": "^1.6.3",
+		"node-fetch": "^3.3.2",
+		"openai": "^4.29.2",
+		"prettier": "^3.2.5",
+		"prop-types": "^15.7.2",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"react-router-dom": "^6.22.3",
+		"react-toastify": "^10.0.5",
+		"styled-components": "^6.1.8"
+	},
+	"devDependencies": {
+		"prettier": "^3.2.5",
+		"prop-types": "^15.7.2"
+	},
+	"peerDependencies": {
+		"react": "^17.0.0 || ^18.0.0",
+		"react-dom": "^17.0.0 || ^18.0.0",
+		"react-router-dom": "^5.0.0 || ^6.0.0",
+		"styled-components": "^5.0.0 || ^6.0.0"
+	},
+	"author": {
+		"name": "Andy Cinquin"
+	},
+	"maintainers": [
+		{
+			"name": "Andy Cinquin"
+		}
+	],
+	"engines": {
+		"node": ">=18.0.0 <=20.x.x",
+		"npm": ">=6.0.0"
+	},
+	"license": "MIT"
 }

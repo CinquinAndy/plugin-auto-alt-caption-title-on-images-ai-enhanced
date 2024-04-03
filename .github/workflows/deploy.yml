@@ -2,8 +2,8 @@ name: Auto Deploy, install dependencies, increment version and push tag
 
 on:
   pull_request:
-    branches: [ master ]
-    types: [ closed ]
+    branches: [master]
+    types: [closed]
 
 jobs:
   publish:
