@@ -9,55 +9,66 @@ Manually adding alternative text, captions, and names to images can be a time-co
 
 By using this plugin, you can:
 
--   Improve accessibility: Alternative text helps users with visual impairments understand the content of images through screen readers or other assistive technologies.
--   Boost SEO: Search engines rely on alternative text and captions to understand the content of images, which can positively impact your website's search rankings.
--   Enhance user experience: Captions and names provide additional context and information about images, enhancing the overall user experience.
+- Improve accessibility: Alternative text helps users with visual impairments understand the content of images through screen readers or other assistive technologies.
+- Boost SEO: Search engines rely on alternative text and captions to understand the content of images, which can positively impact your website's search rankings.
+- Enhance user experience: Captions and names provide additional context and information about images, enhancing the overall user experience.
 
 ## Features
 
--   Automatically generates alternative text, caption, and name for images using AI-powered image analysis.
--   Supports processing individual images or bulk processing all images at once.
--   Provides a user-friendly interface within the Strapi admin panel to initiate image processing.
--   Displays progress and status updates during the image processing.
--   Allows cancellation of the image processing if needed.
--   Integrates seamlessly with the Strapi Media Library.
+- Automatically generates alternative text, caption, and name for images using AI-powered image analysis.
+- Supports processing individual images or bulk processing all images at once.
+- Provides a user-friendly interface within the Strapi admin panel to initiate image processing.
+- Displays progress and status updates during the image processing.
+- Allows cancellation of the image processing if needed.
+- Integrates seamlessly with the Strapi Media Library.
 
 ## Prerequisites
 
 Before using this plugin, ensure that you have the following:
 
--   Strapi v4.x installed in your project.
--   An OpenAI API key. You can sign up for an API key at [OpenAI](https://platform.openai.com/signup).
+- Strapi v4.x installed in your project.
+- An OpenAI API key. You can sign up for an API key at [OpenAI](https://platform.openai.com/signup).
 
 ## Installation
 
 1.  Install the plugin in your Strapi project using npm or yarn:
+
 ```bash
-npm install strapi-plugin-auto-alt-caption-title-on-images-ai-enhanced 
+npm install strapi-plugin-auto-alt-caption-title-on-images-ai-enhanced
 ```
+
 or
+
 ```bash
 yarn add strapi-plugin-auto-alt-caption-title-on-images-ai-enhanced
 ```
+
 2. Enable the plugin in your Strapi configuration file (config/plugins.js):
+
 ```javascript
 module.exports = {
-  // ...
-  'auto-alt-caption-title-on-images-ai-enhanced': {
-    enabled: true,
-  },
-  // ...
-};
+	// ...
+	'auto-alt-caption-title-on-images-ai-enhanced': {
+		enabled: true,
+	},
+	// ...
+}
 ```
+
 3. Add your OpenAI API key to the Strapi environment variables file (`.env`):
+
 ```json
 OPENAI_API_KEY=your-api-key
 ```
+
 4. Rebuild your Strapi admin panel:
+
 ```bash
 npm run build
 ```
+
 5. Restart your Strapi server:
+
 ```bash
 npm run develop
 ```
@@ -74,9 +85,9 @@ npm run develop
 
 ## Troubleshooting
 
--   If you encounter any issues or errors during the installation or usage of the plugin, please ensure that you have followed the installation steps correctly and have provided a valid OpenAI API key.
--   If the image processing fails or takes an unusually long time, check your OpenAI API usage and limits. Ensure that you have sufficient credits and that your API key is valid.
--   If you experience any other problems or have questions, please feel free to open an issue on the plugin's GitHub repository.
+- If you encounter any issues or errors during the installation or usage of the plugin, please ensure that you have followed the installation steps correctly and have provided a valid OpenAI API key.
+- If the image processing fails or takes an unusually long time, check your OpenAI API usage and limits. Ensure that you have sufficient credits and that your API key is valid.
+- If you experience any other problems or have questions, please feel free to open an issue on the plugin's GitHub repository.
 
 ## Contributing
 
