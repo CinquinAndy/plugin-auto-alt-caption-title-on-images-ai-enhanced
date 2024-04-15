@@ -679,9 +679,9 @@
     react-select "5.7.0"
 
 "@strapi/icons@^1.6.3":
-  version "1.17.0"
-  resolved "https://registry.yarnpkg.com/@strapi/icons/-/icons-1.17.0.tgz#a9c877b3dacca52a1978e9f4e28fdd8600cbbec5"
-  integrity sha512-RmV03BEECWmMlv0LpcZpwOZStcw9s6nQKqYg4jLZu7c+nDsOBZl+o6PNUnKnVeEtb7dVKliYykjZnLEVw72CGA==
+  version "1.18.0"
+  resolved "https://registry.yarnpkg.com/@strapi/icons/-/icons-1.18.0.tgz#ef8e36155ad4dfce53e83b780ba5c64856d1e9a2"
+  integrity sha512-XeOjGqwDX7HkSfWNnUOx8WCT3qGzPixZrKxNUPCPmIzcLmhL9/Ni4wa1uoqwiZgzq/XzoiXpNEPl1lB5Tiljjg==
 
 "@strapi/ui-primitives@^1.18.0":
   version "1.18.0"
