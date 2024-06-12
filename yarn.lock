@@ -767,9 +767,9 @@
     react-remove-scroll "^2.5.9"
 
 "@strapi/helper-plugin@^4.6.0":
-  version "4.24.5"
-  resolved "https://registry.yarnpkg.com/@strapi/helper-plugin/-/helper-plugin-4.24.5.tgz#d8460be8ee4f9e0c7b9b68753a7a4a6391724e35"
-  integrity sha512-UgLpivDE2KbxuhvuJpwN8+tFYRR8GnMyWvq9jxPUe0FwNzMcKo0sCBPplA1mJO/whQqmJH2CwEHWfaN34lqdYg==
+  version "4.25.0"
+  resolved "https://registry.yarnpkg.com/@strapi/helper-plugin/-/helper-plugin-4.25.0.tgz#eadf32d89b05e6a0f8cd3149c82722c59b588004"
+  integrity sha512-mR+M5E6DR7uJ9z8gIgkp/3Gq5HQyjwzti29mQrd70ux46FfLN5fkwH1Pb3NRBWBSW7PQOczSeCJtnKkTZZn3pQ==
   dependencies:
     axios "1.6.0"
     date-fns "2.30.0"
