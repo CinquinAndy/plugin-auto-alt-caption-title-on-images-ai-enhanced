@@ -1,6 +1,6 @@
 {
 	"name": "strapi-plugin-auto-alt-caption-title-on-images-ai-enhanced",
-	"version": "1.0.91",
+	"version": "1.0.92",
 	"description": "A Strapi plugin that automatically generates alternative text, caption, and name for images using AI-powered image analysis.",
 	"strapi": {
 		"name": "auto-alt-caption-title-on-images-ai-enhanced",
