@@ -868,16 +868,16 @@
     form-data "^4.0.0"
 
 "@types/node@*":
-  version "20.14.11"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.14.11.tgz#09b300423343460455043ddd4d0ded6ac579b74b"
-  integrity sha512-kprQpL8MMeszbz6ojB5/tU8PLN4kesnN8Gjzw349rDlNgsSzg90lAVj3llK99Dh7JON+t9AuscPPFW6mPbTnSA==
+  version "20.14.12"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.14.12.tgz#129d7c3a822cb49fc7ff661235f19cfefd422b49"
+  integrity sha512-r7wNXakLeSsGT0H1AU863vS2wa5wBOK4bWMjZz2wj+8nBx+m5PeIn0k8AloSLpRuiwdRQZwarZqHE4FNArPuJQ==
   dependencies:
     undici-types "~5.26.4"
 
 "@types/node@^18.11.18":
-  version "18.19.41"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.19.41.tgz#27695cf2cac63f22c202b9217c0bcf3fb192a2f0"
-  integrity sha512-LX84pRJ+evD2e2nrgYCHObGWkiQJ1mL+meAgbvnwk/US6vmMY7S2ygBTGV2Jw91s9vUsLSXeDEkUHZIJGLrhsg==
+  version "18.19.42"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.19.42.tgz#b54ed4752c85427906aab40917b0f7f3d724bf72"
+  integrity sha512-d2ZFc/3lnK2YCYhos8iaNIYu9Vfhr92nHiyJHRltXWjXUBjEE+A4I58Tdbnw4VhggSW+2j5y5gTrLs4biNnubg==
   dependencies:
     undici-types "~5.26.4"
 
@@ -1579,9 +1579,9 @@ once@^1.3.0:
     wrappy "1"
 
 openai@^4.29.2:
-  version "4.53.0"
-  resolved "https://registry.yarnpkg.com/openai/-/openai-4.53.0.tgz#5ac6fc2ba1bba239a31c910bd57d793814bea61d"
-  integrity sha512-XoMaJsSLuedW5eoMEMmZbdNoXgML3ujcU5KfwRnC6rnbmZkHE2Q4J/SArwhqCxQRqJwHnQUj1LpiROmKPExZJA==
+  version "4.53.1"
+  resolved "https://registry.yarnpkg.com/openai/-/openai-4.53.1.tgz#5ea38c175a70b685d329fafd6669dc4e789592b2"
+  integrity sha512-BFj9e0jfzqd2GAGRY9hj6PU7VrGyl3LPhUdji7QvZCVxlqusoLR5qBzH5wjrJZ4d1BBDic/t5yvTdk023fM7+w==
   dependencies:
     "@types/node" "^18.11.18"
     "@types/node-fetch" "^2.6.4"
@@ -1590,7 +1590,6 @@ openai@^4.29.2:
     form-data-encoder "1.7.2"
     formdata-node "^4.3.2"
     node-fetch "^2.6.7"
-    web-streams-polyfill "^3.2.1"
 
 parent-module@^1.0.0:
   version "1.0.1"
@@ -2015,7 +2014,7 @@ web-streams-polyfill@4.0.0-beta.3:
   resolved "https://registry.yarnpkg.com/web-streams-polyfill/-/web-streams-polyfill-4.0.0-beta.3.tgz#2898486b74f5156095e473efe989dcf185047a38"
   integrity sha512-QW95TCTaHmsYfHDybGMwO5IJIM93I/6vTRk+daHTWFPhwh+C8Cg7j7XyKrwrj8Ib6vYXe0ocYNrmzY4xAAN6ug==
 
-web-streams-polyfill@^3.0.3, web-streams-polyfill@^3.2.1:
+web-streams-polyfill@^3.0.3:
   version "3.3.3"
   resolved "https://registry.yarnpkg.com/web-streams-polyfill/-/web-streams-polyfill-3.3.3.tgz#2073b91a2fdb1fbfbd401e7de0ac9f8214cecb4b"
   integrity sha512-d2JWLCivmZYTSIoge9MsgFCZrt571BikcWGYkjC1khllbTeDlGqZ2D8vD8E/lJa8WGWbb7Plm8/XJYV7IJHZZw==
