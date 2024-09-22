@@ -15,46 +15,40 @@ module.exports = ({ strapi }) => ({
 			console.log('apiUrl:', apiUrl)
 
 			let imageBuffer
-			if (imageUrl.startsWith('http://localhost') || imageUrl.startsWith('/')) {
-				// Log Strapi configuration
-				console.log('Strapi config:', strapi.config)
-				console.log('Strapi dirs:', strapi.dirs)
+			if (imageUrl.startsWith('/') || imageUrl.startsWith('http://localhost')) {
+				// Get the upload provider configuration
+				const uploadConfig = strapi.config.get('plugin.upload')
+				console.log('Upload config:', uploadConfig)
 
-				// Try multiple methods to get the correct path
-				let publicPath
-				if (strapi.dirs && strapi.dirs.public) {
-					publicPath = strapi.dirs.public
-				} else if (strapi.config && strapi.config.get) {
-					const uploadConfig = strapi.config.get('plugin.upload')
-					publicPath =
-						uploadConfig &&
-						uploadConfig.providerOptions &&
-						uploadConfig.providerOptions.sizeLimit
-							? uploadConfig.providerOptions.sizeLimit
-							: process.cwd()
+				let filePath
+				if (uploadConfig.provider === 'local') {
+					// For local provider, construct the path
+					console.log('Local provider detected')
+					console.log('strapi.dirs:', strapi.dirs)
+					filePath = path.join(strapi.dirs.static.public, imageUrl)
 				} else {
-					publicPath = process.cwd()
+					// For other providers, we might need to download the file
+					// This is a placeholder and might need adjustment based on your setup
+					filePath = path.join(
+						strapi.dirs.tmp,
+						'uploads',
+						path.basename(imageUrl)
+					)
+					// You might need to implement file download logic here
 				}
 
-				console.log('Determined public path:', publicPath)
-
-				const localPath = path.join(
-					publicPath,
-					'uploads',
-					imageUrl.split('/uploads/')[1]
-				)
-				console.log('Attempting to read file from:', localPath)
+				console.log('Attempting to read file from:', filePath)
 
 				try {
-					imageBuffer = await fs.promises.readFile(localPath)
+					imageBuffer = await fs.promises.readFile(filePath)
 					console.log('Successfully read local file')
 				} catch (readError) {
 					console.error('Error reading local file:', readError)
-					throw new Error(`Unable to read local file: ${localPath}`)
+					throw new Error(`Unable to read local file: ${filePath}`)
 				}
 			} else {
 				console.log('Fetching remote image')
-				const imageResponse = await strapi.axios.get(imageUrl, {
+				const imageResponse = await strapi.httpClient.get(imageUrl, {
 					responseType: 'arraybuffer',
 				})
 				imageBuffer = Buffer.from(imageResponse.data, 'binary')
@@ -62,16 +56,18 @@ module.exports = ({ strapi }) => ({
 			}
 
 			const formData = new FormData()
-			formData.append('image', imageBuffer, { filename: 'image.jpg' })
+			// get the filename from the imageUrl (.png, .jpg, or .jpeg etc)
+
+			formData.append('image', imageBuffer, { filename: filename })
 			formData.append('language', 'en')
 
 			console.log('Sending request to ForVoyez API')
-			const response = await strapi.axios.post(apiUrl, formData, {
-				headers: {
-					...formData.getHeaders(),
-					Authorization: `Bearer ${apiKey}`,
-				},
-			})
+			// const response = await strapi.httpClient.post(apiUrl, formData, {
+			// 	headers: {
+			// 		...formData.getHeaders(),
+			// 		Authorization: `Bearer ${apiKey}`,
+			// 	},
+			// })
 
 			console.log('Received response from ForVoyez API')
 			const data = response.data
