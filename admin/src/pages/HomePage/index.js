@@ -30,8 +30,6 @@ const HomePage = () => {
 			}
 		)
 
-		console.log('fetchPromise', fetchPromise)
-
 		toast.promise(
 			fetchPromise,
 			{
