@@ -15,26 +15,23 @@ module.exports = ({ strapi }) => ({
 			console.log('apiUrl:', apiUrl)
 
 			let imageBuffer
+			let filename
+
 			if (imageUrl.startsWith('/') || imageUrl.startsWith('http://localhost')) {
-				// Get the upload provider configuration
 				const uploadConfig = strapi.config.get('plugin.upload')
 				console.log('Upload config:', uploadConfig)
 
 				let filePath
 				if (uploadConfig.provider === 'local') {
-					// For local provider, construct the path
 					console.log('Local provider detected')
 					console.log('strapi.dirs:', strapi.dirs)
 					filePath = path.join(strapi.dirs.static.public, imageUrl)
 				} else {
-					// For other providers, we might need to download the file
-					// This is a placeholder and might need adjustment based on your setup
 					filePath = path.join(
 						strapi.dirs.tmp,
 						'uploads',
 						path.basename(imageUrl)
 					)
-					// You might need to implement file download logic here
 				}
 
 				console.log('Attempting to read file from:', filePath)
@@ -42,6 +39,8 @@ module.exports = ({ strapi }) => ({
 				try {
 					imageBuffer = await fs.promises.readFile(filePath)
 					console.log('Successfully read local file')
+					filename = path.basename(filePath)
+					console.log('Extracted filename:', filename)
 				} catch (readError) {
 					console.error('Error reading local file:', readError)
 					throw new Error(`Unable to read local file: ${filePath}`)
@@ -53,23 +52,27 @@ module.exports = ({ strapi }) => ({
 				})
 				imageBuffer = Buffer.from(imageResponse.data, 'binary')
 				console.log('Successfully fetched remote image')
+				filename = path.basename(new URL(imageUrl).pathname)
+				console.log('Extracted filename from URL:', filename)
 			}
 
 			const formData = new FormData()
-			// get the filename from the imageUrl (.png, .jpg, or .jpeg etc)
-
+			console.log('Appending image to FormData with filename:', filename)
 			formData.append('image', imageBuffer, { filename: filename })
 			formData.append('language', 'en')
 
 			console.log('Sending request to ForVoyez API')
-			// const response = await strapi.httpClient.post(apiUrl, formData, {
-			// 	headers: {
-			// 		...formData.getHeaders(),
-			// 		Authorization: `Bearer ${apiKey}`,
-			// 	},
-			// })
+			const response = await strapi.httpClient.post(apiUrl, formData, {
+				headers: {
+					...formData.getHeaders(),
+					Authorization: `Bearer ${apiKey}`,
+				},
+			})
 
 			console.log('Received response from ForVoyez API')
+			console.log('Response status:', response.status)
+			console.log('Response data:', JSON.stringify(response.data, null, 2))
+
 			const data = response.data
 
 			return {
