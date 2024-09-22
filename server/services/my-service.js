@@ -3,11 +3,14 @@
 const FormData = require('form-data')
 const fs = require('fs').promises
 const path = require('path')
+const axios = require('axios')
 
 module.exports = ({ strapi }) => ({
 	async getImageDescription(imageUrl) {
 		try {
-			const apiKey = process.env.FORVOYEZ_API_KEY
+			const apiKey = strapi.config.get(
+				'plugin.auto-alt-caption-title-on-images-ai-enhanced.apiKey'
+			)
 			const apiUrl = 'https://api.forvoyez.com/describe'
 
 			console.log('Processing image:', imageUrl)
@@ -18,11 +21,8 @@ module.exports = ({ strapi }) => ({
 			formData.append('image', imageBuffer, { filename })
 			formData.append('language', 'en')
 
-			// Optional: Add context or schema if needed
-			// formData.append('data', JSON.stringify({ context: 'Additional context', schema: {...} }));
-
 			console.log('Sending request to ForVoyez API')
-			const response = await strapi.httpClient.post(apiUrl, formData, {
+			const response = await axios.post(apiUrl, formData, {
 				headers: {
 					...formData.getHeaders(),
 					Authorization: `Bearer ${apiKey}`,
@@ -38,7 +38,10 @@ module.exports = ({ strapi }) => ({
 				caption: data.caption || '',
 			}
 		} catch (error) {
-			console.error('Error in getImageDescription:', error)
+			console.error('Error in getImageDescription:', error.message)
+			if (error.response) {
+				console.error('API response error:', error.response.data)
+			}
 			throw new Error('Failed to process image: ' + error.message)
 		}
 	},
@@ -65,9 +68,7 @@ module.exports = ({ strapi }) => ({
 
 	async getRemoteImageBuffer(imageUrl) {
 		console.log('Fetching remote image:', imageUrl)
-		const response = await strapi.httpClient.get(imageUrl, {
-			responseType: 'arraybuffer',
-		})
+		const response = await axios.get(imageUrl, { responseType: 'arraybuffer' })
 		const imageBuffer = Buffer.from(response.data, 'binary')
 		return { imageBuffer, filename: path.basename(new URL(imageUrl).pathname) }
 	},
