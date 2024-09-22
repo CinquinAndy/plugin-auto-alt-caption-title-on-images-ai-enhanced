@@ -258,21 +258,21 @@ const HomePage = () => {
 									}}
 								>
 									<p>
-										⛔ You need to have an API key from OpenAI to use this
+										⛔ You need to have an API key from ForVoyez to use this
 										plugin. You can get one by signing up at{' '}
 										<a
-											href="https://platform.openai.com/signup"
+											href="https://forvoyez.com/app/tokens"
 											target="_blank"
 											rel="noreferrer"
 										>
-											OpenAI
+											ForVoyez
 										</a>
 										.
 									</p>
 									<p>
 										and then you need to add the API key to the .env file in the
 										root of your Strapi project. The key should be named
-										OPENAI_API_KEY.
+										FORVOYEZ_API_KEY
 									</p>
 								</div>
 							)}

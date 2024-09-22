@@ -1,7 +1,7 @@
 # Strapi Plugin: Auto Alt Caption Title on Images with AI Enhancement
 
 This Strapi plugin automatically generates alternative text (alt), caption, and name for images using AI-powered image analysis. It is designed to enhance the accessibility, SEO, and user experience of your Strapi application by providing meaningful and descriptive information for images.
-It use the OpenAI API to generate the alt text, caption and name of the images.
+It use the ForVoyez API to generate the alt text, caption and name of the images.
 
 ## Why Use This Plugin?
 
@@ -27,20 +27,20 @@ By using this plugin, you can:
 Before using this plugin, ensure that you have the following:
 
 - Strapi v4.x installed in your project.
-- An OpenAI API key. You can sign up for an API key at [OpenAI](https://platform.openai.com/signup).
+- An ForVoyez API key. You can sign up for an API key at [ForVoyez](https://forvoyez.com/app/tokens).
 
 ## Installation
 
 1.  Install the plugin in your Strapi project using npm or yarn:
 
 ```bash
-npm install strapi-plugin-auto-alt-caption-title-on-images-ai-enhanced
+npm install strapi-auto-alt-caption-title-on-images-ai-enhanced
 ```
 
 or
 
 ```bash
-yarn add strapi-plugin-auto-alt-caption-title-on-images-ai-enhanced
+yarn add strapi-auto-alt-caption-title-on-images-ai-enhanced
 ```
 
 2. Enable the plugin in your Strapi configuration file (config/plugins.js):
@@ -55,10 +55,10 @@ module.exports = {
 }
 ```
 
-3. Add your OpenAI API key to the Strapi environment variables file (`.env`):
+3. Add your ForVoyez API key to the Strapi environment variables file (`.env`):
 
 ```json
-OPENAI_API_KEY=your-api-key
+FORVOYEZ_API_KEY=your_api_key_here
 ```
 
 4. Rebuild your Strapi admin panel:
@@ -85,8 +85,8 @@ npm run develop
 
 ## Troubleshooting
 
-- If you encounter any issues or errors during the installation or usage of the plugin, please ensure that you have followed the installation steps correctly and have provided a valid OpenAI API key.
-- If the image processing fails or takes an unusually long time, check your OpenAI API usage and limits. Ensure that you have sufficient credits and that your API key is valid.
+- If you encounter any issues or errors during the installation or usage of the plugin, please ensure that you have followed the installation steps correctly and have provided a valid ForVoyez API key.
+- If the image processing fails or takes an unusually long time, check your ForVoyez API usage and limits. Ensure that you have sufficient credits and that your API key is valid.
 - If you experience any other problems or have questions, please feel free to open an issue on the plugin's GitHub repository.
 
 ## Contributing
@@ -101,7 +101,7 @@ This plugin is released under the [MIT License](https://opensource.org/licenses/
 
 ## Acknowledgements
 
-This plugin was developed using the powerful capabilities of the OpenAI API and the Strapi framework. We would like to express our gratitude to the OpenAI team for their innovative AI technology and to the Strapi community for their excellent headless CMS solution.
+This plugin was developed using the powerful capabilities of the ForVoyez API and the Strapi framework. We would like to express our gratitude to the ForVoyez team for their innovative AI technology and to the Strapi community for their excellent headless CMS solution.
 
 ## Contact
 
