@@ -1,13 +1,11 @@
 'use strict'
 
-const { OpenAI } = require('openai')
-
 module.exports = ({ strapi }) => ({
 	async getImageDescription(imageUrl) {
-		const openai = new OpenAI({
-			apiKey: process.env.OPENAI_API_KEY,
-			dangerouslyAllowBrowser: true,
-		})
+		// const openai = new OpenAI({
+		// 	apiKey: process.env.OPENAI_API_KEY,
+		// 	dangerouslyAllowBrowser: true,
+		// })
 
 		try {
 			let imageData
@@ -46,36 +44,36 @@ module.exports = ({ strapi }) => ({
 				}
 			}
 
-			// Get the image description using the OpenAI API
-			const response = await openai.chat.completions.create({
-				model: 'gpt-4-vision-preview',
-				messages: [
-					{
-						role: 'user',
-						content: [
-							{
-								type: 'text',
-								text: "What's in this image? Make it simple, I just want the context and an idea (think about alt text).",
-							},
-							imageData,
-						],
-					},
-				],
-			})
-
-			// Generate alt text, caption, and title for the image
-			const completion = await openai.chat.completions.create({
-				model: 'gpt-3.5-turbo-0125',
-				messages: [
-					{
-						role: 'user',
-						content: `You are an SEO expert and you are writing alt text, caption, and title for this image. The description of the image is: ${response.choices[0].message.content}. Give me a title (name) for this image, an SEO-friendly alternative text, and a caption for this image. Generate this information and respond with a JSON object using the following fields: name, alternativeText, caption. Use this JSON template: {"name": "string", "alternativeText": "string", "caption": "string"}.`,
-					},
-				],
-				max_tokens: 750,
-				n: 1,
-				stop: null,
-			})
+			// // Get the image description using the OpenAI API
+			// const response = await openai.chat.completions.create({
+			// 	model: 'gpt-4-vision-preview',
+			// 	messages: [
+			// 		{
+			// 			role: 'user',
+			// 			content: [
+			// 				{
+			// 					type: 'text',
+			// 					text: "What's in this image? Make it simple, I just want the context and an idea (think about alt text).",
+			// 				},
+			// 				imageData,
+			// 			],
+			// 		},
+			// 	],
+			// })
+			//
+			// // Generate alt text, caption, and title for the image
+			// const completion = await openai.chat.completions.create({
+			// 	model: 'gpt-3.5-turbo-0125',
+			// 	messages: [
+			// 		{
+			// 			role: 'user',
+			// 			content: `You are an SEO expert and you are writing alt text, caption, and title for this image. The description of the image is: ${response.choices[0].message.content}. Give me a title (name) for this image, an SEO-friendly alternative text, and a caption for this image. Generate this information and respond with a JSON object using the following fields: name, alternativeText, caption. Use this JSON template: {"name": "string", "alternativeText": "string", "caption": "string"}.`,
+			// 		},
+			// 	],
+			// 	max_tokens: 750,
+			// 	n: 1,
+			// 	stop: null,
+			// })
 
 			// Parse the generated JSON data and return it
 			const generatedData = JSON.parse(
