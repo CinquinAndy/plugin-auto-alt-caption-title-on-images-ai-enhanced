@@ -55,12 +55,14 @@ module.exports = ({ strapi }) => ({
 			// Extract imageUrl and imageId from the request body
 			const { imageUrl, imageId } = ctx.request.body
 
+			console.log('imageUrl:', imageUrl)
 			// Send the image URL to the forvoyez API for analysis
 			const imageDescription = await strapi
-				.service(
-					'plugin::auto-alt-caption-title-on-images-ai-enhanced.my-service'
-				)
+				.plugin('auto-alt-caption-title-on-images-ai-enhanced')
+				.service('my-service')
 				.getImageDescription(imageUrl)
+
+			console.log('test')
 
 			// Update the image fields with the analysis results
 			await strapi.entityService.update('plugin::upload.file', imageId, {

@@ -10,6 +10,10 @@ module.exports = ({ strapi }) => ({
 			const apiKey = process.env.FORVOYEZ_API_KEY
 			const apiUrl = 'https://api.forvoyez.com/describe'
 
+			console.log('imageUrl:', imageUrl)
+			console.log('apiKey:', apiKey)
+			console.log('apiUrl:', apiUrl)
+
 			let imageResponse
 			if (imageUrl.startsWith('http://localhost') || imageUrl.startsWith('/')) {
 				const fullImageUrl = imageUrl.startsWith('/')
