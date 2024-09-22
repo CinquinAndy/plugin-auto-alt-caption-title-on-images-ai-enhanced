@@ -16,14 +16,24 @@ module.exports = ({ strapi }) => ({
 
 			let imageBuffer
 			if (imageUrl.startsWith('http://localhost') || imageUrl.startsWith('/')) {
-				const fullImageUrl = imageUrl.startsWith('/')
-					? `http://localhost:1337${imageUrl}`
-					: imageUrl
+				// Construct the correct path for local files
+				const uploadConfig = strapi.config.get('plugin.upload')
+				const publicPath = uploadConfig.providerOptions?.sizeLimit
+					? uploadConfig.providerOptions.sizeLimit
+					: strapi.dirs.public
+
 				const localPath = path.join(
-					strapi.dirs.static.public,
+					publicPath,
 					imageUrl.replace('/uploads/', '')
 				)
-				imageBuffer = await fs.promises.readFile(localPath)
+				console.log('Attempting to read file from:', localPath)
+
+				try {
+					imageBuffer = await fs.promises.readFile(localPath)
+				} catch (readError) {
+					console.error('Error reading local file:', readError)
+					throw new Error(`Unable to read local file: ${localPath}`)
+				}
 			} else {
 				const imageResponse = await strapi.axios.get(imageUrl, {
 					responseType: 'arraybuffer',
@@ -51,7 +61,7 @@ module.exports = ({ strapi }) => ({
 			}
 		} catch (error) {
 			console.error('Error in getImageDescription:', error)
-			throw new Error('Failed to process image')
+			throw new Error('Failed to process image: ' + error.message)
 		}
 	},
 })
