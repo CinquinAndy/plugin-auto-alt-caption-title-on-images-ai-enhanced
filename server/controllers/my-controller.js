@@ -42,7 +42,7 @@ module.exports = ({strapi}) => ({
             // Return the filtered images in the response body
             ctx.body = {
                 data: imagesFiltered,
-                apiKeyIsSet: process.env.OPENAI_API_KEY !== '' ? true : false,
+                apiKeyIsSet: process.env.FORVOYEZ_API_KEY !== '' ? true : false,
             }
         } catch (error) {
             // Throw an error if there's an issue retrieving images
@@ -55,10 +55,10 @@ module.exports = ({strapi}) => ({
             // Extract imageUrl and imageId from the request body
             const {imageUrl, imageId} = ctx.request.body
 
-            // Send the image URL to the OpenAI API for analysis
+            // Send the image URL to the forvoyez API for analysis
             const imageDescription = await strapi
                 .service(
-                    'plugin::auto-alt-caption-title-on-images-ai-enhanced.myService'
+                    'plugin::auto-alt-caption-title-on-images-ai-enhanced.forvoyezService'
                 )
                 .getImageDescription(imageUrl)
 
