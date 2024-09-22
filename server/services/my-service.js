@@ -4,6 +4,7 @@ const FormData = require('form-data')
 const fs = require('fs').promises
 const path = require('path')
 const axios = require('axios')
+const https = require('https')
 
 module.exports = ({ strapi }) => ({
 	async getImageDescription(imageUrl) {
@@ -11,9 +12,11 @@ module.exports = ({ strapi }) => ({
 			const apiKey = strapi.config.get(
 				'plugin.auto-alt-caption-title-on-images-ai-enhanced.apiKey'
 			)
-			const apiUrl = 'https://api.forvoyez.com/describe'
+			const apiUrl = 'https://forvoyez.com/api/describe'
+			const isProduction = strapi.config.get('environment') === 'production'
 
 			console.log('Processing image:', imageUrl)
+			console.log('API key:', apiKey)
 
 			const { imageBuffer, filename } = await this.getImageBuffer(imageUrl)
 
@@ -22,12 +25,18 @@ module.exports = ({ strapi }) => ({
 			formData.append('language', 'en')
 
 			console.log('Sending request to ForVoyez API')
-			const response = await axios.post(apiUrl, formData, {
+
+			const axiosConfig = {
 				headers: {
 					...formData.getHeaders(),
 					Authorization: `Bearer ${apiKey}`,
 				},
-			})
+				httpsAgent: new https.Agent({
+					rejectUnauthorized: isProduction,
+				}),
+			}
+
+			const response = await axios.post(apiUrl, formData, axiosConfig)
 
 			console.log('Received response from ForVoyez API')
 			const data = response.data
@@ -68,7 +77,12 @@ module.exports = ({ strapi }) => ({
 
 	async getRemoteImageBuffer(imageUrl) {
 		console.log('Fetching remote image:', imageUrl)
-		const response = await axios.get(imageUrl, { responseType: 'arraybuffer' })
+		const response = await axios.get(imageUrl, {
+			responseType: 'arraybuffer',
+			httpsAgent: new https.Agent({
+				rejectUnauthorized: strapi.config.get('environment') === 'production',
+			}),
+		})
 		const imageBuffer = Buffer.from(response.data, 'binary')
 		return { imageBuffer, filename: path.basename(new URL(imageUrl).pathname) }
 	},
