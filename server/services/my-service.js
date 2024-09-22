@@ -1,7 +1,8 @@
 'use strict'
 
 const FormData = require('form-data')
-const fetch = require('node-fetch')
+const fetch = (...args) =>
+	import('node-fetch').then(({ default: fetch }) => fetch(...args))
 
 module.exports = ({ strapi }) => ({
 	async getImageDescription(imageUrl) {
@@ -45,8 +46,6 @@ module.exports = ({ strapi }) => ({
 
 			const data = await response.json()
 
-			// Assuming the ForVoyez API returns data in the format we need.
-			// If not, you may need to transform the data here.
 			return {
 				name: data.title || '',
 				alternativeText: data.alt || '',
