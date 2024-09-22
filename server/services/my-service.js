@@ -1,8 +1,8 @@
 'use strict'
 
 const FormData = require('form-data')
-const fetch = (...args) =>
-	import('node-fetch').then(({ default: fetch }) => fetch(...args))
+const fs = require('fs')
+const path = require('path')
 
 module.exports = ({ strapi }) => ({
 	async getImageDescription(imageUrl) {
@@ -14,41 +14,35 @@ module.exports = ({ strapi }) => ({
 			console.log('apiKey:', apiKey)
 			console.log('apiUrl:', apiUrl)
 
-			let imageResponse
+			let imageBuffer
 			if (imageUrl.startsWith('http://localhost') || imageUrl.startsWith('/')) {
 				const fullImageUrl = imageUrl.startsWith('/')
 					? `http://localhost:1337${imageUrl}`
 					: imageUrl
-				imageResponse = await fetch(fullImageUrl)
-				if (!imageResponse.ok) {
-					throw new Error(`HTTP error! status: ${imageResponse.status}`)
-				}
+				const localPath = path.join(
+					strapi.dirs.static.public,
+					imageUrl.replace('/uploads/', '')
+				)
+				imageBuffer = await fs.promises.readFile(localPath)
 			} else {
-				imageResponse = await fetch(imageUrl)
-				if (!imageResponse.ok) {
-					throw new Error(`HTTP error! status: ${imageResponse.status}`)
-				}
+				const imageResponse = await strapi.axios.get(imageUrl, {
+					responseType: 'arraybuffer',
+				})
+				imageBuffer = Buffer.from(imageResponse.data, 'binary')
 			}
-
-			const imageBlob = await imageResponse.blob()
 
 			const formData = new FormData()
-			formData.append('image', imageBlob, 'image.jpg')
-			formData.append('language', 'en') // You can change this to the desired language
+			formData.append('image', imageBuffer, { filename: 'image.jpg' })
+			formData.append('language', 'en')
 
-			const response = await fetch(apiUrl, {
-				method: 'POST',
+			const response = await strapi.axios.post(apiUrl, formData, {
 				headers: {
+					...formData.getHeaders(),
 					Authorization: `Bearer ${apiKey}`,
 				},
-				body: formData,
 			})
 
-			if (!response.ok) {
-				throw new Error(`ForVoyez API error! status: ${response.status}`)
-			}
-
-			const data = await response.json()
+			const data = response.data
 
 			return {
 				name: data.title || '',
