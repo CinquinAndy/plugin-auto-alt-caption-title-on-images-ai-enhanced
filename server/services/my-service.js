@@ -9,9 +9,7 @@ const https = require('https')
 module.exports = ({ strapi }) => ({
 	async getImageDescription(imageUrl) {
 		try {
-			const apiKey = strapi.config.get(
-				'plugin.auto-alt-caption-title-on-images-ai-enhanced.apiKey'
-			)
+			const apiKey = process.env.FORVOYEZ_API_KEY
 			const apiUrl = 'https://forvoyez.com/api/describe'
 			const isProduction = strapi.config.get('environment') === 'production'
 
@@ -41,9 +39,10 @@ module.exports = ({ strapi }) => ({
 			console.log('Received response from ForVoyez API')
 			const data = response.data
 
+			console.log('Image description:', data)
 			return {
 				name: data.title || '',
-				alternativeText: data.alt || '',
+				alternativeText: data.alt_text || '',
 				caption: data.caption || '',
 			}
 		} catch (error) {
