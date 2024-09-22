@@ -1,7 +1,7 @@
 'use strict'
 
 const FormData = require('form-data')
-const fs = require('fs')
+const fs = require('fs').promises
 const path = require('path')
 
 module.exports = ({ strapi }) => ({
@@ -10,56 +10,16 @@ module.exports = ({ strapi }) => ({
 			const apiKey = process.env.FORVOYEZ_API_KEY
 			const apiUrl = 'https://api.forvoyez.com/describe'
 
-			console.log('imageUrl:', imageUrl)
-			console.log('apiKey:', apiKey)
-			console.log('apiUrl:', apiUrl)
+			console.log('Processing image:', imageUrl)
 
-			let imageBuffer
-			let filename
-
-			if (imageUrl.startsWith('/') || imageUrl.startsWith('http://localhost')) {
-				const uploadConfig = strapi.config.get('plugin.upload')
-				console.log('Upload config:', uploadConfig)
-
-				let filePath
-				if (uploadConfig.provider === 'local') {
-					console.log('Local provider detected')
-					console.log('strapi.dirs:', strapi.dirs)
-					filePath = path.join(strapi.dirs.static.public, imageUrl)
-				} else {
-					filePath = path.join(
-						strapi.dirs.tmp,
-						'uploads',
-						path.basename(imageUrl)
-					)
-				}
-
-				console.log('Attempting to read file from:', filePath)
-
-				try {
-					imageBuffer = await fs.promises.readFile(filePath)
-					console.log('Successfully read local file')
-					filename = path.basename(filePath)
-					console.log('Extracted filename:', filename)
-				} catch (readError) {
-					console.error('Error reading local file:', readError)
-					throw new Error(`Unable to read local file: ${filePath}`)
-				}
-			} else {
-				console.log('Fetching remote image')
-				const imageResponse = await strapi.httpClient.get(imageUrl, {
-					responseType: 'arraybuffer',
-				})
-				imageBuffer = Buffer.from(imageResponse.data, 'binary')
-				console.log('Successfully fetched remote image')
-				filename = path.basename(new URL(imageUrl).pathname)
-				console.log('Extracted filename from URL:', filename)
-			}
+			const { imageBuffer, filename } = await this.getImageBuffer(imageUrl)
 
 			const formData = new FormData()
-			console.log('Appending image to FormData with filename:', filename)
-			formData.append('image', imageBuffer, { filename: filename })
+			formData.append('image', imageBuffer, { filename })
 			formData.append('language', 'en')
+
+			// Optional: Add context or schema if needed
+			// formData.append('data', JSON.stringify({ context: 'Additional context', schema: {...} }));
 
 			console.log('Sending request to ForVoyez API')
 			const response = await strapi.httpClient.post(apiUrl, formData, {
@@ -70,9 +30,6 @@ module.exports = ({ strapi }) => ({
 			})
 
 			console.log('Received response from ForVoyez API')
-			console.log('Response status:', response.status)
-			console.log('Response data:', JSON.stringify(response.data, null, 2))
-
 			const data = response.data
 
 			return {
@@ -81,8 +38,37 @@ module.exports = ({ strapi }) => ({
 				caption: data.caption || '',
 			}
 		} catch (error) {
-			console.error('Detailed error in getImageDescription:', error)
+			console.error('Error in getImageDescription:', error)
 			throw new Error('Failed to process image: ' + error.message)
 		}
+	},
+
+	async getImageBuffer(imageUrl) {
+		if (imageUrl.startsWith('/') || imageUrl.startsWith('http://localhost')) {
+			return this.getLocalImageBuffer(imageUrl)
+		} else {
+			return this.getRemoteImageBuffer(imageUrl)
+		}
+	},
+
+	async getLocalImageBuffer(imageUrl) {
+		const uploadConfig = strapi.config.get('plugin.upload')
+		const filePath =
+			uploadConfig.provider === 'local'
+				? path.join(strapi.dirs.static.public, imageUrl)
+				: path.join(strapi.dirs.tmp, 'uploads', path.basename(imageUrl))
+
+		console.log('Reading local file:', filePath)
+		const imageBuffer = await fs.readFile(filePath)
+		return { imageBuffer, filename: path.basename(filePath) }
+	},
+
+	async getRemoteImageBuffer(imageUrl) {
+		console.log('Fetching remote image:', imageUrl)
+		const response = await strapi.httpClient.get(imageUrl, {
+			responseType: 'arraybuffer',
+		})
+		const imageBuffer = Buffer.from(response.data, 'binary')
+		return { imageBuffer, filename: path.basename(new URL(imageUrl).pathname) }
 	},
 })
