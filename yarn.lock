@@ -765,10 +765,10 @@
     react-query "3.39.3"
     react-select "5.7.0"
 
-"@strapi/icons@^1.6.3":
-  version "1.19.0"
-  resolved "https://registry.yarnpkg.com/@strapi/icons/-/icons-1.19.0.tgz#efa6b553a7de437171512e3549859faa141a145f"
-  integrity sha512-jcS7n3Ps+73fYGadxdaD6owazoDJKN1fHSG9dp8RX4RqkP6BfoHOX5j3aodVLmDX57Ksg6gy5JXf9xEml7nMpQ==
+"@strapi/icons@^2.0.0":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@strapi/icons/-/icons-2.1.2.tgz#019cd6b62bd18f1827fad48dce15733892440013"
+  integrity sha512-RnVKuhO8gCWbpIjIs0Qfm0rmOLUrvmCR33AHHClwi7L5i9UwTqVG8ajRPVGptG2dC5vA6JCigsVPAS6yXjUTHQ==
 
 "@strapi/ui-primitives@^1.19.0":
   version "1.19.0"
